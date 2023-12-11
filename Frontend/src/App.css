@@ -1,0 +1,58 @@
+/* font for logo */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kenia&family=Lobster&family=Mooli&family=Pixelify+Sans&family=Roboto+Condensed:wght@300;700&family=Skranji:wght@700&family=Young+Serif&display=swap');
+
+/* font for nav list items */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kay+Pho+Du:wght@400;500&family=Kenia&family=Lobster&family=Mooli&family=Open+Sans&family=Pixelify+Sans&family=Poppins:wght@600&family=Roboto+Condensed:wght@100;300;700&family=Skranji:wght@700&family=Young+Serif&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+body{
+  width: 100%;
+  height: auto;
+  padding-top:6rem ;   
+  background:  bg-green-50 ;
+  border: 1px solid red;
+}
+
+
+.border2{
+    border: 1px solid red;
+
+}
+
+.logo{
+  font-family: Kenia;
+  justify-content:center ;
+  align-items: center;
+
+}
+
+.nav-list-items{
+  font-family: Poppins;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+
+.register{
+  background-color: #dbc8c8;
+    background-image: linear-gradient(0deg, #9d697a 0%, #8cb7b6 100%);
+   height:auto;
+
+}
+
+.avater_bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+.image-bg{
+  background-size: cover;
+}
