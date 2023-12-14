@@ -1,22 +1,28 @@
 // Import Mongoose
-// const mongoose = require('mongoose');
 import mongoose from "mongoose";
+import validator from "validator";
 
 // Define a schema
 const patientSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, unique: true, required: true },
-  password: { type: String, required: true },
-  photo: {type: String},
-  address: { type: {}, required: true },
-  role : { type: String, 
-    enum : ["patient","admin" ],
-    default: "patient",
-  },
-  gender: {type: String, enum : ["male","female", "other"]},
+
+  user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+        },
+
+  gender: {type: String, enum : ["male","female", "other"] },
+
   bloodType: {type: String},
+
   appointments: [{type :mongoose.Types.ObjectId, ref: "Appointment"}],
-});
+
+  prescriptions: [
+                  {
+                    drugName: {type: String, required: true},
+                    dosage: { type: String,},
+                  },
+                ],
+              });
 
 // Create a model based on the schema
 export default mongoose.model("Patient",  patientSchema);

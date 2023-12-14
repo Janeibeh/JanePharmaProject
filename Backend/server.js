@@ -18,7 +18,8 @@ import cookieParser from "cookie-parser";
 import cors from "cors"
 
 import authRoute from "./Routes/authRoute.js"
-
+import productRoute from "./Routes/productRoute.js"
+import categoryRoute from "./Routes/CategoryRoutes.js"
 
 // rest object
 const app = express();
@@ -30,7 +31,10 @@ app.use(cors (corsOptions));
 
 
 // // routes or end points
+
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/product", productRoute);
+app.use("/api/v1/category", categoryRoute);
 
 // rest api
 app.get("/", (req,res) => {

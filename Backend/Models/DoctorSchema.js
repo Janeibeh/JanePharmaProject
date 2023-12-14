@@ -1,16 +1,15 @@
 // const mongoose = require("mongoose")
-import mongoose from "mongoose"
+import mongoose from "mongoose";
+import validator from "validator";
 
 const doctorSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, unique: true, required: true, lowercase: true, validate: (value) => {
-                        return validator.isEmail(value)}
-            },
-    password: { type: String, required: true,  unique: true,},
-    phone : { type: Number},
-    photo: {type: String},
-    role : { type: String},
-    specialization:{ type: String},
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        },
+
+    specialization:{ type: String, required: true},
+
     qualifications: { type: Array},
     experience : { type: Array},
     bio  : { type: String, maxLength:50 },
@@ -21,8 +20,16 @@ const doctorSchema = new mongoose.Schema({
     averageRating : { type: Number, default: 0},
     totalRating : { type: Number, default: 0},
     isApproved :  { type: String, enum:["pending", "approved", "cancelled"], default :"pending"},
-    appointments: [{  type:  mongoose.Types.ObjectId, ref: "Appointment"}],
+    appointments: [
+        {  type:  mongoose.Types.ObjectId, ref: "Appointment"},
+        //    patient: {
+        //       type: mongoose.Schema.Types.ObjectId,
+        //       ref: 'User',
+        //     },
+        appointmentDate: { type: Date, required: true }
+    ],
 })
 
 
 export default mongoose.model("Doctor", doctorSchema)
+

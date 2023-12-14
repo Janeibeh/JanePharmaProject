@@ -48,8 +48,9 @@ const Pharmacy = () => {
 ]
   return (
     <>
-      <div className="w-full " >
-        <div  className="w-full h-[9.5vw] fixed "style={{
+      <div className="w-full h-screen " >
+  
+        <div  className="w-full h-[9.5vw] sticky top-20 "style={{
           backgroundImage: 'url(./Media/medplus.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -58,7 +59,7 @@ const Pharmacy = () => {
 
           <div className="w-full items-center justify-center " >
     
-              <div className="flex items-center justify-between px-[5.5vw] py-[3.5vw] w-full  ">
+              <div className="flex items-center justify-between px-[5.5vw] py-[3.5vw] w-full fixed z-300">
   
                 <div className="font-bold flex items-center justify-center  text-[1rem]  "> SHOP BY CATEGORY</div>
                 <div className="flex items-center justify-center  ml-[8vw]   gap-[1vw] ">
@@ -76,7 +77,11 @@ const Pharmacy = () => {
                 <div className="font-bold flex items-center justify-center ml-[2vw] text-[0.92rem]  ">CART(0)</div> 
               </div>
 
-              <div className=" w-[15vw] ml-[5.5vw]  ">
+              </div>
+        </div >
+          <div className="flex flex-wrap w-[100vw] ">
+
+              <div className=" w-[12.5vw] ml-[6vw] fixed border2">
                 <input type="checkbox" id="antibiotics" name="antibiotics" value="antibiotics"/>
                 <label for="antibiotics"> All products</label><br></br>
 
@@ -99,11 +104,10 @@ const Pharmacy = () => {
                 <label for="contraceptives"> Sanitary pads</label><br></br>
 
                 <input type="checkbox" id="contraceptives" name="contraceptives" value="contraceptives"/>
-                <label for="contraceptives"> Skincare</label><br></br>    
-              </div>
+                <label for="contraceptives"> Skincare</label><br></br>  
 
-              <p className="font-bold flex items-center justify-center mt-[3vw] w-fit ml-[5.5vw] text-[1rem]  "> FILTER BY PRICE</p>
-                <div className=" w-[20vw]  pl-[5.5vw] mt-[1vw] ">
+                <p className="font-bold flex items-center justify-center mt-[2vw] w-fit text-[1rem]"> FILTER BY PRICE</p>
+                <br/>
 
                   <input type="checkbox" id="zero-ninecube" name="zero-ninecube" value="zero-ninecube"/>
                   <label for="zero-ninecube">  ₦0 to  ₦999 </label><br></br>
@@ -114,46 +118,32 @@ const Pharmacy = () => {
                   <input type="checkbox" id="zero-ninecube" name="zero-ninecube" value="zero-ninecube"/>
                   <label for="zero-ninecube">  ₦10000 or more </label><br></br>
 
-                </div>
-
-                <button className="flex items-center justify-center w-[11.5vw] ml-[5vw] mt-[2vw] h-[2.5vw] border bg-[red] text-[1rem] rounded-lg text-[white]   "> RESET FILTERS</button>
+                  <button className="flex items-center justify-center w-[12.5vw] mt-[2vw] h-[2.5vw]  pr-[1vw] border bg-[red] text-[1rem] rounded-lg text-[white]   "> RESET FILTERS</button>          
               </div>
-            
+
+        <div className='  w-[100vw] '>
+          <div className="  flex items-center justify-center mt-[1vw] ml-[18.5vw] w-[82vw] h-[4vw] ">
+                  <p className="font-bold text-[1.5vw] ">OUR BEST SELLERS</p>
+          </div>
+          <div className="w-[79.9vw]  ml-[19vw] ">
+            <div class=""> </div>
+          </div>
+          <div className="w-[80%] gap-[2%] flex flex-wrap p-[0.5vw] ml-[19vw] flex items-center justify-center  h-[50vw] ">
+            {antibiotics.map( (params, index)=> {
+              return <div className="bg-[white] flex flex-col items-center  justify-center w-[15vw] h-[23vw] border  bg-[grey]">
+                  <img src={params.image} alt="" className="w-fit h-fit"/>
+                  <p className="">{params.name}</p>
+                  <p className="font-bold text-[green]">{params.naira}</p>
+                  <button className="border rounded-lg w-[8vw] mt-[2vw] border-[green] ">Buy now</button>
+              </div>
+          })}
+          </div>
         </div>
-      
-        <div className="w-full flex items-center justify-center  ">
-                <p className="font-bold text-[1.5vw] ">OUR BEST SELLERS</p>
-        </div>
-        <div class="h-14 bg-gradient-to-r from-red-50 to-teal-50  flex items-center justify-center font-bold text-[1.1vw]"> ALL PRODUCTS</div>
-      
-        <div className="w-[80%] gap-[2%] flex flex-wrap p-[0.5vw] ml-[19vw] flex items-center justify-center  border2 h-[50vw] ">
-        {antibiotics.map( (params, index)=> {
-          return <div className="bg-[white] flex flex-col items-center  justify-center w-[15vw] h-[23vw] border  bg-[grey]">
-          <img src={params.image} alt="" className="w-fit h-fit"/>
-          <p className="">{params.name}</p>
-          <p className="font-bold text-[green]">{params.naira}</p>
-          <button className="border rounded-lg w-[8vw] mt-[2vw] border-[green] ">Buy now</button>
-        </div>
-        })}
-
-
 
         </div>
-     
-        <div class="h-14 bg-gradient-to-r from-red-50 to-teal-50"></div>
-     
-        <div className="h-[3vw]"></div>
-    
 
+        
 
-
-        <div class="h-14 bg-gradient-to-r from-red-50 to-teal-50 flex items-center justify-center font-bold text-[1.1vw]"></div> 
-        <div class="h-4 bg-gradient-to-r from-red-50 to-teal-50"></div>
-        <div>
-      
-        </div>
-        <div class="h-4 bg-gradient-to-r from-red-50 to-teal-50"></div>
-      
       </div>
     </>
   )
