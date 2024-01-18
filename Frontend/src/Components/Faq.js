@@ -34,12 +34,12 @@ const Faq = () => {
                     <div className="font-bold py-[2vw] items-center justify-center text-[1.4vw]">Most frequently asked questions from our patients</div>
                     <div className="w-full flex flex-col gap-[2.5vw]">
                         {faqItems.map((item, index) => (
-                            <div key={index} className="h-[2.5vw]">
+                            <div key={index} className="h-[2.5vw] gap-[3vw]">
                                 <div className="flex justify-between items-center cursor-pointer" onClick={() => handleToggle(index)}>
-                                    <div className="font-bold  border text-[1vw] py-[0.5vw]">{item.title}</div>
-                                    <div className="border ">{openIndex === index ? '−' : '+'}</div>
+                                    <div className="font-bold  border w-[50vw]   text-[1vw] py-[0.5vw]">{item.title}</div>
+                                    <div className="border">{openIndex === index ? '−' : '+'}</div>
                                 </div>
-                                {openIndex === index && <div className="text-[0.9vw]">{item.content}</div>}
+                                {openIndex === index && <div className="text-[0.9vw] h-[3vw] ">{item.content}</div>}
                             </div>
                         ))}
                     </div>

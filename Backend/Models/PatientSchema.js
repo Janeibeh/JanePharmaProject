@@ -5,7 +5,7 @@ import validator from "validator";
 // Define a schema
 const patientSchema = new mongoose.Schema({
 
-  user: {
+  userId: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'User',
         },

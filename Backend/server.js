@@ -20,6 +20,9 @@ import cors from "cors"
 import authRoute from "./Routes/authRoute.js"
 import productRoute from "./Routes/productRoute.js"
 import categoryRoute from "./Routes/CategoryRoutes.js"
+import userRouthe from "./Routes/userRouthe.js"
+import doctorRouthe from "./Routes/doctorRouthe.js"
+import reviewRoute from "./Routes/reviewRoutes.js"
 
 // rest object
 const app = express();
@@ -35,6 +38,9 @@ app.use(cors (corsOptions));
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/product", productRoute);
 app.use("/api/v1/category", categoryRoute);
+app.use("/api/v1/users", userRouthe);
+app.use("/api/v1/doctors", doctorRouthe);
+app.use("/api/v1/reviews", reviewRoute);
 
 // rest api
 app.get("/", (req,res) => {

@@ -90,7 +90,7 @@ return (
         
         <div className=" relative overflow-hidden w-full h-full">
 
-        <div className="flex items-center justify-start h-[28vw] absolute top-0 left-0 w-auto gap-[1vw] px-[1vw]  rounded-lg overflow-hidden "  
+        <div className="flex items-center justify-start h-[28vw] absolute  top-0 left-0 w-auto gap-[1vw] px-[1vw]  rounded-lg overflow-hidden "  
             //styling buttonslider div as translateX to transform and transition as
         style={{
             transform: `translateX(${translateX}%)`,

@@ -6,9 +6,9 @@ const doctorSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        },
+    },
 
-    specialization:{ type: String, required: true},
+    specialization:{ type: String},
 
     qualifications: { type: Array},
     experience : { type: Array},
@@ -20,14 +20,14 @@ const doctorSchema = new mongoose.Schema({
     averageRating : { type: Number, default: 0},
     totalRating : { type: Number, default: 0},
     isApproved :  { type: String, enum:["pending", "approved", "cancelled"], default :"pending"},
-    appointments: [
-        {  type:  mongoose.Types.ObjectId, ref: "Appointment"},
-        //    patient: {
-        //       type: mongoose.Schema.Types.ObjectId,
-        //       ref: 'User',
-        //     },
-        appointmentDate: { type: Date, required: true }
-    ],
+    // appointments: [
+    //     {  type:  mongoose.Types.ObjectId, ref: "Appointment"},
+    //     //    patient: {
+    //     //       type: mongoose.Schema.Types.ObjectId,
+    //     //       ref: 'User',
+    //     //     },
+    //     appointmentDate: { type: Date, required: true },
+    // ],
 })
 
 

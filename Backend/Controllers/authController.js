@@ -1,74 +1,105 @@
+import UserSchema from "../Models/UserSchema.js"
 import PatientSchema from "../Models/PatientSchema.js"
 import DoctorSchema from "../Models/DoctorSchema.js"
-import jsonwebtoken from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 import bcrypt from "bcryptjs"
 
 
+
+const generateToken = user => {
+            return jwt.sign( {id:user._id, role:user.role}, process.env.JWT_SECRET_key, {
+                            expiresIn: "15d",
+            }) 
+        }
+
 export const register = async(req, res) => {
     const {first_name, last_name, password, email, phone, address, photo, role, gender} = req.body
-    // console.log(req.body)
+
     try {
-        let user = null;
-        
-        if (role === 'patient') {
-            user = await PatientSchema.findOne({ email });
-        }else if (role === 'doctor') {
-            user = await DoctorSchema.findOne({ email });   
-        }
-    
-            
+        let user = await UserSchema.findOne({ email });
         // Check if user exists
         if (user) {
-                return res.status(400).json({message:"User already exists"})
+            return res.status(400).json({success:false, message:"User already exists"})
         }
-        // else {
-        //     // Handle invalid role
-        //     return res.status(400).json({ message: 'Invalid role' });
-        // }
-
+        else  if (!user) {
+                console.log('Account succesfully created')
+                res.status(201).json({success:true, message:"Account succesfully created"})
+            }
+            
+        
         // Hash the password before saving to the database
         const salt = await bcrypt.genSalt(10)
         const hashPassword = await bcrypt.hash(password, salt)
+        let roles = ['user', role]
 
-        // Create a new user based on the role
-        if (role === 'patient') {
-            user = new PatientSchema({
-                first_name,
-                last_name,
-                password: hashPassword,
-                email,
-                phone,
-                address,
-                photo,
-                role,
-                gender,
-            });
-        } else if (role === 'doctor') {
-            user = new DoctorSchema({
-                first_name,
-                last_name,
-                password: hashPassword,
-                email,
-                address,
-                photo,
-                role,
-                gender,
-            });
-        }
-
-        // Save the user to the database
+        user = new UserSchema({
+            first_name,
+            last_name,
+            password: hashPassword,
+            email,
+            phone,
+            address,
+            photo,
+            roles,
+            gender,
+        });
         await user.save();
-        res.status(200).json({sucess:true, message:"Account succesfully created"})
+        
+        if (role === 'doctor') {
+            let doctor = new DoctorSchema({userId: user._id,});
+            await doctor.save();
+        }else if (role === 'patient') {
+            let patient = new PatientSchema({userId: user._id,});   
+            await patient.save();
+        }
+    
+    //     // Save the user to the database
+        
+        res.status(201).json({success:true, message:"Account succesfully created"})
 
-    } catch (error) {
-        res.status(500).json({sucess:false, message:"Internal server error, Try again." + error})
+    } 
+    catch (error) {
+        
+        res.status(500).json({success:false, message:"Internal server error, Try again."})
     }
+
+    
+    
+
 }
+
+
+
 
 export const login = async(req, res) => {
     try {
+
+        const { email, password } = req.body;
         
-    } catch (error) {
-        
-    }
+        let user = await UserSchema.findOne({ email });
+            
+        // Check if user doenst exist
+            if (!user) {
+                return res.status(404).json({success: false, message:"User not found"})
+            }
+
+        // then compare passwords
+        const passwordMatched = await bcrypt.compare(password, user.password)
+        if (!passwordMatched) { 
+            return res.status(404).json({ success:false ,message:"Invalid Credentials"})
+        }
+
+        //get authentication token 
+        const  token = generateToken(user);
+
+        //destructure the properties 
+        const {hashedPassword, role, appointments, ...rest} = user._doc
+
+        res.status(200).json({ success:true, message:"Sucessfully logged in", token, user})
+        } 
+
+    catch (error) {
+        // Send a generic error message to clients
+            res.status(500).json({ status: "error", message: "Login failed. Please try again." });
+        }
 }

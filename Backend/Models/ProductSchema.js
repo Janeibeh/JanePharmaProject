@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema({
   title: {
@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema({
 
   categoryId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category', // Reference to the Category model
+    ref: 'Category', // Referenced to the Category model because each product is grouped into a category, hence must carry an id for that category
     required: true,
   },
 
@@ -43,6 +43,4 @@ const productSchema = new mongoose.Schema({
   },
 });
 
-const Cart = mongoose.model('Cart', cartSchema);
-
-module.exports = Cart;
+export default mongoose.model("Product",  productSchema);

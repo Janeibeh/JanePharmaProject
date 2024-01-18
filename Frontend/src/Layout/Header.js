@@ -1,8 +1,11 @@
-import React from 'react'
+import {useContext} from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import Footer from './Footer'
+import { AuthContext } from '../Context/AuthContext'
 
 const Header = () => {
+    const {user, token} = useContext(AuthContext);
+    console.log('User', user)
     return (
     <> 
         <div className=" flex justify-center mx-auto w-[100%]  bg-[#fafafa] z-[999] fixed top-0   " >
@@ -31,25 +34,26 @@ const Header = () => {
                         <li >
                             <Link to= "pharmacy" className=" hover:underline hover:decoration-[black]">  Pharmacy</Link>
                         </li>
-                    </ul>
-                    <ul className="menu flex items-center justify-center gap-[0.3rem] uppercase  text-[1rem] "> 
+
+                        <h1 className='border2 w-[4vw]'>{user?.first_name}</h1>
                         <li className="flex items-center justify-center border bg-black w-[10rem] h-[2.4rem]  rounded-lg  hover:bg-blue-950 ">
-                            <Link to= "/login" className=" text-[0.8rem] text-[white] font-bold">  SIGN IN</Link>
+                            <Link to= "/login" className=" text-[0.8rem] text-[white] font-bold">  LOG IN</Link>
                         </li>
+                    </ul>
+              
+                        
 
                         <figure className="w-[3vw] h-[3vw] rounded-full cursor-pointer border2 md:hidden">
                                 <img src="" alt="" className="w-full rounded-full"/>
                         </figure>
 
-                        <li className="flex items-center justify-center border bg-black w-[10.5rem] h-[2.4rem] rounded-lg  hover:bg-red-600 ">
-                            <Link to= "appointments" className=" text-[0.8rem] text-[white] font-bold"> Appointments</Link>
-                        </li>
+                       
                         
                         {/* <span className="md:hidden">
                             <BiMenu className="w-6 h-6 cursor pointer"/>
                         </span> */}
 
-                    </ul>
+               
                 </div>
 
             </nav>

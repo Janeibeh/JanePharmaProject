@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link} from 'react-router-dom'
 
 const Services = () => {
   const services = [
@@ -56,21 +56,13 @@ const Services = () => {
       
       <div className="flex flex-wrap justify-center gap-[2rem] w-full "   >
       {services.map((params, index) => {
-    return   <div  key={index} className=" w-[16%]"> <div className="flex flex-col items-center justify-center bg-black gap-[1rem] w-full h-[11rem] border rounded-lg ">
-      <div  className=" flex items-center justify-center"><img  src={params.image} alt="" /></div>
-      <p className="  text-[white]  text-[0.7rem]  "> {params.name}</p>
-    </div>
-    </div>
-
-
-
+    return   <Link  key={index} className=" w-[16%]" to= "/doctors" > 
+                <div className="flex flex-col items-center justify-center bg-black gap-[1rem] w-full h-[11rem] border rounded-lg ">
+                    <div  className=" flex items-center justify-center"><img  src={params.image} alt="" /></div>
+                      <p className="  text-[white]  text-[0.7rem]  "> {params.name}</p>
+                </div>
+              </Link>
     })}
-
-
-
-    
-
-    
 
   </div>
   </div>

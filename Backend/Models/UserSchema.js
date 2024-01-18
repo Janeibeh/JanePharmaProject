@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
+import mongoose from "mongoose";
+import validator from "validator";
 
 // User Schema (common fields for both patients and doctors)
 const userSchema = new mongoose.Schema({
@@ -24,10 +24,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  role: {
-    type: String,
-    enum: ['patient', 'doctor', 'admin'],
-    default: ["patient",'doctor'],
+  roles: {
+    type: [[String]],
+    enum: ['patient', 'doctor', 'admin', 'user'],
+    default: ["user"],
     required: true,
   },
   phone: {
