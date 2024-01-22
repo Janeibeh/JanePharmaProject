@@ -12,7 +12,7 @@ const DoctorDetails = () => {
   const { id } = params;
   const [doctor, setDoctor] = useState({})
 
-  console.log('Id', id)
+
   //INITIAL DOCTOR DETAILS
   useEffect(() => {
     if (id) {
@@ -26,7 +26,7 @@ const DoctorDetails = () => {
     try {
       const {data} = await axios.get(`${BASE_URL}/doctors/${id}`);
       
-      console.log("Data", data)
+    
       setDoctor(data.doctor)
     } catch (error) {
       // console.log('Error', error)

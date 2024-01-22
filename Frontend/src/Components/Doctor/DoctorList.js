@@ -1,12 +1,13 @@
 import React from 'react'
 
-import {doctors} from "./../../data/doctors"
+// import {doctors} from "./../../data/doctors"
 import DoctorCard from './DoctorCard';
 
-const DoctorList = ({filter}) => {
-  console.log('Filter', filter);
+const DoctorList = ({doctors, filter}) => {
+
+
+  console.log('Filter', filter, doctors);
   const trimmedFilter = filter?.trim().toLowerCase() || "";
-  console.log('Filter', filter, trimmedFilter);
   const result = !filter ? doctors : doctors.filter(doctor => doctor.name.toLowerCase().includes(trimmedFilter))
   console.log('Result', result)
   // const result = /*filter && filter.length >= 3 ? 

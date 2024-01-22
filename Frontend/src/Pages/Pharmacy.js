@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Badge } from "antd";
+
 import axios from "axios";
+import { BASE_URL } from "../config";
+import ProductsCard from "../Components/ProductsCard";
 
 const Pharmacy = () => {
   const itemsPerPage = 6;
@@ -8,21 +10,30 @@ const Pharmacy = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState([]);
 
-  // const [cart] = useCart();
+
   
 
-  useEffect(() => {
-    axios
-      .get(
-        `http://localhost:8000/api/v1/product/${currentPage}/${itemsPerPage}`
-      )
-      .then((response) => {
-        setProducts(response.data.products);
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
-  }, [currentPage]);
+  // TO DISPLAY ALL PRODUCTS ON PHARMACY PAGE, CREATE AN ASYNC FETCH PRODUCTS FUNCTION 
+  // IT WILL FETCH PRODUCTS FROM THE PRODUCTS data in the mongoonse SCHEMA MENTIONED IN THE PRODUCTS CONTROLLERS ON THE GET ALL PRODUCTS FUNCTION
+  const fetch_product = async () => {
+    try {
+      // const {data} = await axios.get(`${BASE_URL}/products/${currentPage}/${itemsPerPage}`)
+
+      //when using await, do not use .then
+      const {data} = await axios.get(`${BASE_URL}/products`);
+      // console.log("NEWData", data)
+      setProducts(data.products)
+    } catch (error) {
+
+    }
+  }
+
+
+  useEffect(()=> {
+    fetch_product()
+  }, [])
+
+
 
   return (
     <>
@@ -42,7 +53,7 @@ const Pharmacy = () => {
                 {" "}
                 SHOP BY CATEGORY
               </div>
-              <div className="flex items-center justify-center  ml-[8vw]   gap-[1vw] ">
+              <form className="flex items-center justify-center  ml-[8vw] gap-[1vw] " >
                 <input
                   type="text"
                   placeholder="Search drugs, products, categories"
@@ -58,12 +69,11 @@ const Pharmacy = () => {
                 <button className="h-[2.5vw] text-[1rem] text-white w-[9vw] border rounded-lg hover:bg-orange-200 border-white ">
                   SEARCH
                 </button>
-              </div>
+              </form>
               <div className="font-bold flex items-center justify-center ml-[2vw] text-[0.92rem]" to="/cart" >
                 {/* <Badge count={cart?.length} showZero>CART</Badge> */}
               </div>
-     
-             
+
             </div>
           </div>
         </div>
@@ -181,34 +191,19 @@ const Pharmacy = () => {
                 OUR BEST SELLERS
               </p>
             </div>
-            <div className="w-[80vw] bg-orange-200 gap-[1.3%] py-[0.5vw] ml-[19vw] flex flex-wrap items-start justify-center ">
-              {products.map((params, index) => {
-                return (
-                  <a
-                    href={`/${params.id}`}
-                    className="w-[14.7vw] h-[19vw]"
-                    key={index}
-                  >
-                    <img
-                      src={params.image}
-                      alt=""
-                      className="w-fit h-fit border border-orange-100  "
-                    />
-                    <div className="flex flex-col  border h-[3.8vw] pl-[0.5vw] w-[14.75vw] bg-[white] ">
-                      <p className=" text-[1rem]  ">{params.title}</p>
-                      <p className="font-bold text-[green] text-[0.9rem] py-[0.4vw]">
-                        N{params.price}
-                      </p>
-                      <div className="flex">
-                        <button className="border rounded-lg w-[8vw] border-[green] ">More details</button>
-                        <button className="border rounded-lg w-[8vw] border-[green] ">Add to cart</button>
-                      </div>
-                    </div>
-                  </a>
-                );
-              })}
+          
+
+            {/* It is best practise to map a component or card in a parent tag */}
+            <div className=" container w-[80.7vw] ml-[19vw] flex items-center justify-center mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-[1vw]  mt-[2vw]">
+            {products && products.map((product,index)=>  (
+              
+                <ProductsCard  key={product._id} product={product}/>
+                // products should be logged in console to be sure it is really fetched
+            ))}
+
+        </div>
+
             </div>
-          </div>
         </div>
       </div>
     </>

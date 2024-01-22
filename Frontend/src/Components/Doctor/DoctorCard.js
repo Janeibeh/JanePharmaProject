@@ -3,15 +3,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const DoctorCard = ({ doctor }) => {
-  const { id, name, specialization, averageRating, totalRating, photo, totalPatients, hospital } = doctor;
+  const { _id, user, specialization, averageRating, totalRating, photo, totalPatients, hospital } = doctor;
 
   return (
     <>
       <div className='container flex px-[4vw]  mt-[4vw]'>
-        <Link to={`/doctors/${id}`}>
+        <Link to={`/doctors/${_id}`}>
           <div className=' h-[34vw] w-[25vw] flex flex-col mt-[2vw] items-start justify-center '>
             <img src={photo} alt="" className='bg-[white] flex items-center justify-center h-[24vw] w-[17vw]'/>
-            <h2 className='font-bold text-[1.2vw] mt-[1vw] flex items-start justify-start'>{name} </h2>
+            <h2 className='font-bold text-[1.2vw] mt-[1vw] flex items-start justify-start'>{`${user?.first_name || ''} ${user?.last_name || '' }` } </h2>
             <div className='w-[20vw] flex mt-[1vw] flex justify-between'>
                 <div className=" flex  items-center justify-center bg-[white] w-[9vw] h-[2.5vw]">
                     <h2 className='font-bold text-[0.9vw] text-yellow-600 '>{specialization} </h2>

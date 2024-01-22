@@ -1,9 +1,32 @@
-import React, {useState} from 'react'
+import {useState, useEffect} from 'react'
 import DoctorList from '../Components/Doctor/DoctorList'
+import { BASE_URL } from '../config';
+import axios  from 'axios';
 
 
 const Doctors = () => {
   const [filter, setFilter] = useState();
+  const [doctors,  setDoctors] = useState();
+
+ 
+  //TO DISPLAY ALL DOCTORS ON DOCTORS PAGE, CREATE AN ASYNC GET ALL DOCTORS FUNCTION 
+  //IT WILL FETCH DOCTORS FROM THE doctors data in the mongoonse SCHEMA MENTIONED IN THE DOCTORS CONTROLLERS ON THE GET ALL DOCTORS FUNCTION
+  const getAllDoctors = async () => {
+    try {
+      const {data} = await axios.get(`${BASE_URL}/doctors`); 
+      
+      setDoctors(data.doctors)
+    } catch (error) {
+
+    }
+  }
+
+   // CALL THE GET ALL DOCTORS AS A FUNCTION IN useEFFECT 
+   useEffect(() => {
+    getAllDoctors();
+}, [])
+
+
   return (
     <>
       <div className="h-[150vw]">
@@ -25,7 +48,8 @@ const Doctors = () => {
           </section>
 
           <section className='bg-blue-500'> 
-            <DoctorList filter={filter} className="flex items-center justify-center "/>
+          {/* doctors={doctors}  this is a key to access doctors from getalldoctors function in doctor controllers*/}
+            <DoctorList  doctors={doctors} filter={filter} className="flex items-center justify-center "/>
           </section>
 
       </div>

@@ -5,20 +5,25 @@ import App from './App';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContextProvider } from './Context/AuthContext';
-
+import { CartProvider } from './Context/CartContext';
+import { SearchProvider } from './Context/SearchContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
-    <ToastContainer
-    theme='dark'
-    position='top-right'
-    autoClose= {3000}
-    closeOnClick
-    pauseOnHover={false}
-    />
-    <App />
+      <SearchProvider>
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </SearchProvider>  
     </AuthContextProvider>
+    <ToastContainer
+      theme='dark'
+      position='top-right'
+      autoClose= {3000}
+      closeOnClick
+      pauseOnHover={false}
+      />
   </React.StrictMode>
 );
 

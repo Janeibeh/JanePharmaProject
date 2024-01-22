@@ -7,9 +7,8 @@ const doctorSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-
+    photo:{ type: String},
     specialization:{ type: String},
-
     qualifications: { type: Array},
     experience : { type: Array},
     bio  : { type: String, maxLength:50 },

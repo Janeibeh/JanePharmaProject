@@ -22,7 +22,6 @@ export const deleteDoctor = async (req, res) => {
     const id = req.params.id; // Corrected destructuring syntax
 
     try {
-      
         const deleteDoctor = await DoctorSchema.findByIdAndDelete(id);
 
 
@@ -54,8 +53,6 @@ export const getSingleDoctor = async (req, res) => {
 
 
 export const getAllDoctors = async (req, res) => {
-    const id = req.params.id; // Corrected destructuring syntax
-
     try {
 
        // To search for a doctor in all doctors
@@ -76,8 +73,10 @@ export const getAllDoctors = async (req, res) => {
             //                 doctors = await DoctorSchema.find({isApproved: "approved"}).select("-password");
             //             }
 
-
+        //THE doctors hold the doctor data in the mongoose database
+        //populate the user reference  inside th doctorSchema
         let doctors = await DoctorSchema.find().populate('user').exec();
+        
         res.status(200).json({ success: true, message: "Doctors found", doctors });
     } catch (err) {
         res.status(500).json({ success: false, message: "No Doctors  found" });

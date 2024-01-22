@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema({
 
   categoryId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category', // Referenced to the Category model because each product is grouped into a category, hence must carry an id for that category
+    ref: "Category", // Referenced to the Category model because each product is grouped into a category, hence must carry an id for that category
     required: true,
   },
 

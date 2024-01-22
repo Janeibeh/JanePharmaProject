@@ -36,7 +36,7 @@ app.use(cors (corsOptions));
 // // routes or end points
 
 app.use("/api/v1/auth", authRoute);
-app.use("/api/v1/product", productRoute);
+app.use("/api/v1/products", productRoute);
 app.use("/api/v1/category", categoryRoute);
 app.use("/api/v1/users", userRouthe);
 app.use("/api/v1/doctors", doctorRouthe);

@@ -2,9 +2,13 @@ import {useContext} from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import Footer from './Footer'
 import { AuthContext } from '../Context/AuthContext'
+import { Badge } from "antd";
+import {ShoppingCart} from "react-feather"
+import { useCart } from '../Context/CartContext';
 
 const Header = () => {
     const {user, token} = useContext(AuthContext);
+    const [cart] = useCart()
     console.log('User', user)
     return (
     <> 
@@ -39,33 +43,36 @@ const Header = () => {
                         <li className="flex items-center justify-center border bg-black w-[10rem] h-[2.4rem]  rounded-lg  hover:bg-blue-950 ">
                             <Link to= "/login" className=" text-[0.8rem] text-[white] font-bold">  LOG IN</Link>
                         </li>
+
+                        <li className="flex items-center justify-center   ">
+                            <Badge count={cart?.length} showZero>
+                                <Link to= "/cart" className=""> 
+                                    <ShoppingCart color="red" size={28}/>
+                                </Link>
+                            </Badge>
+                        </li>
                     </ul>
-              
+
+
                         
 
                         <figure className="w-[3vw] h-[3vw] rounded-full cursor-pointer border2 md:hidden">
                                 <img src="" alt="" className="w-full rounded-full"/>
                         </figure>
 
-                       
+        
                         
                         {/* <span className="md:hidden">
                             <BiMenu className="w-6 h-6 cursor pointer"/>
                         </span> */}
-
-               
                 </div>
 
             </nav>
         </div>
-
-
-
-    <div>< Outlet/></div>
+        <div>< Outlet/></div>
     < Footer/>
     </>
-  )
-}
+)}
 
 export default Header
 
