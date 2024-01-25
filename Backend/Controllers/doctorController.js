@@ -1,3 +1,4 @@
+import Booking from "../Models/BookingSchema.js";
 import DoctorSchema from "../Models/DoctorSchema.js";
 
 export const updateDoctor = async (req, res) => {
@@ -80,5 +81,28 @@ export const getAllDoctors = async (req, res) => {
         res.status(200).json({ success: true, message: "Doctors found", doctors });
     } catch (err) {
         res.status(500).json({ success: false, message: "No Doctors  found" });
+    }
+};
+
+export const getDoctorProfile = async (req, res) => {
+    const doctorId = req.user_id; // Corrected destructuring syntax
+
+    try {
+        const doctor = await DoctorSchema.findById({user_id});
+
+    
+        if (!doctor) {
+            return res.status(404).json({ success: false, message: "Doctor not found",   });
+        }
+
+        // if doctor exist, extract password and the rest from the user doc object
+        const {password, ...rest} = doctor._doc
+        const appointments = await BookingSchema.find({doctor: doctorId})
+
+        res.status(200).json({ success: true, message: "Getting profile information", data:{...rest} });
+
+    } 
+    catch (err) {      
+        res.status(500).json({ success: false, message: "Something went wrong, cannot get" });
     }
 };

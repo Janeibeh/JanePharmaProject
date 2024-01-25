@@ -8,11 +8,12 @@ export const addproduct = async(req, res) => {
     
     // console.log(req.body) When creating data, you need a lot of input, which is sent in the request body (req.body). 
     try {
-        try{
-            let category = await CategorySchema.findById(category_id);
-        } catch (error) {
+        
+        let category = await CategorySchema.findById(category_id);
+        if(!category) {
             res.status(400).json({sucess:false, message:"Invalid category selection"})
         }
+        
         let product = new ProductSchema({
             title, description, price, image, quantity, categoryId: category_id
         });

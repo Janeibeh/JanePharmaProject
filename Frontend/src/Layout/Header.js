@@ -7,9 +7,10 @@ import {ShoppingCart} from "react-feather"
 import { useCart } from '../Context/CartContext';
 
 const Header = () => {
-    const {user, token} = useContext(AuthContext);
+    const {user, role, token} = useContext(AuthContext);
     const [cart] = useCart()
     console.log('User', user)
+ 
     return (
     <> 
         <div className=" flex justify-center mx-auto w-[100%]  bg-[#fafafa] z-[999] fixed top-0   " >
@@ -37,11 +38,7 @@ const Header = () => {
 
                         <li >
                             <Link to= "pharmacy" className=" hover:underline hover:decoration-[black]">  Pharmacy</Link>
-                        </li>
-
-                        <h1 className='border2 w-[4vw]'>{user?.first_name}</h1>
-                        <li className="flex items-center justify-center border bg-black w-[10rem] h-[2.4rem]  rounded-lg  hover:bg-blue-950 ">
-                            <Link to= "/login" className=" text-[0.8rem] text-[white] font-bold">  LOG IN</Link>
+                            
                         </li>
 
                         <li className="flex items-center justify-center   ">
@@ -51,15 +48,33 @@ const Header = () => {
                                 </Link>
                             </Badge>
                         </li>
+
+                        {
+                            token  &&  user?    <div className=''>
+{/* write javascript if else statement in css styling using es6script, IF ROLE IS DOCTOR, LINK TO DOCTORS PROFILE, IF NOT LINK TO USER PROFILE */}
+                            <Link to={`${role === "doctor" ? "/doctors/profile/me" : "/users/profile/me"  }`}>
+                                <figure className="w-[3vw] h-[3vw] rounded-full cursor-pointer border2 ">
+                     {/* another if else statement , IF USER DISPLAY IMAGE AND FIRST NAME OR DIRECT TO LOGIN PAGE  */}
+                                    <img src={user?.photo} alt="" className="w-full rounded-full"/>
+                                </figure>
+                                <h1 className='border2 w-[4vw]'>{user?.first_name}</h1>
+                            </Link>
+                        </div> : <div className="flex items-center justify-center border bg-black w-[10rem] h-[2.4rem]  rounded-lg  hover:bg-blue-950 ">
+                            <Link to= "/login" className=" text-[0.8rem] text-[white] font-bold">  LOG IN</Link>
+                        </div>
+
+                        }
+                        
+
+                       
+
+                        
                     </ul>
 
 
                         
 
-                        <figure className="w-[3vw] h-[3vw] rounded-full cursor-pointer border2 md:hidden">
-                                <img src="" alt="" className="w-full rounded-full"/>
-                        </figure>
-
+                       
         
                         
                         {/* <span className="md:hidden">

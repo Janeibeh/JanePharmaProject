@@ -3,6 +3,7 @@ import PatientSchema from "../Models/PatientSchema.js"
 import DoctorSchema from "../Models/DoctorSchema.js"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcryptjs"
+import validator from "validator";
 
 
 
@@ -16,6 +17,15 @@ export const register = async(req, res) => {
     const {first_name, last_name, password, email, phone, address, photo, role, gender} = req.body
 
     try {
+        if(!validator.isEmail(email)){
+            return res.status(400).json({success:false, message:"Invalid email address"})
+        }
+        if(!validator.isMobilePhone(phone, 'en-NG')){
+            return res.status(400).json({success:false, message:"Invalid phone number"})
+        }
+        if(validator.isEmpty(password)){
+            return res.status(400).json({success:false, message:"Password is required"})
+        }
         let user = await UserSchema.findOne({ email });
         // Check if user exists
         if (user) {

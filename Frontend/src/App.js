@@ -17,6 +17,7 @@ import Signup from './Pages/Signup';
 
 // layout
 import Header from './Layout/Header';
+import Cart from './Pages/Cart';
 
 
 
@@ -43,6 +44,7 @@ createRoutesFromElements(
         <Route path = "sign" element={<Signup/>}/>
         <Route path = "login" element={<Login/>}/>
         <Route path = "appointments" element={<Appointments/>}/>
+        <Route path = "cart" element={<Cart/>}/>
     </Route>
   </>
   )

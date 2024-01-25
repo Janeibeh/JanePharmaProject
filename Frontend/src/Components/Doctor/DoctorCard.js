@@ -11,7 +11,7 @@ const DoctorCard = ({ doctor }) => {
         <Link to={`/doctors/${_id}`}>
           <div className=' h-[34vw] w-[25vw] flex flex-col mt-[2vw] items-start justify-center '>
             <img src={photo} alt="" className='bg-[white] flex items-center justify-center h-[24vw] w-[17vw]'/>
-            <h2 className='font-bold text-[1.2vw] mt-[1vw] flex items-start justify-start'>{`${user?.first_name || ''} ${user?.last_name || '' }` } </h2>
+            <h2 className='font-bold text-[1.2vw] mt-[1vw] flex items-start justify-start'>Dr. {`${user?.first_name || ''} ${user?.last_name || '' }` } </h2>
             <div className='w-[20vw] flex mt-[1vw] flex justify-between'>
                 <div className=" flex  items-center justify-center bg-[white] w-[9vw] h-[2.5vw]">
                     <h2 className='font-bold text-[0.9vw] text-yellow-600 '>{specialization} </h2>

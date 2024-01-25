@@ -1,9 +1,10 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 
 // Initial state for the auth context
 const initialState = {
-    user: {},
-    token: null,
+    user: localStorage.getItem("user") === undefined? JSON.parse(localStorage.getItem("user")) : null,
+    token:  localStorage.getItem("token") || null,
+    role:  localStorage.getItem("role") || null,
 };
 
 // Creating the auth context
@@ -23,6 +24,7 @@ const authReducer = (state, action) => {
                 ...state,
                 user: action.payload.user,
                 token: action.payload.token,
+                role: action.payload.role
             };
         case "LOGOUT":
             return {
@@ -38,10 +40,17 @@ const authReducer = (state, action) => {
 export const AuthContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, initialState);
 
+    useEffect(()=> {
+        localStorage.setItem("user",JSON.stringify(state.user))
+        localStorage.setItem("token",JSON.stringify(state.token))
+        localStorage.setItem("role",JSON.stringify(state.role))
+    }, [state])
+
     return (<AuthContext.Provider
                     value={{
                         user: state.user,
                         token: state.token,
+                        role: state.role,
                         dispatch,
                     }}>
                 {children}
