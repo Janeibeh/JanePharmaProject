@@ -1,0 +1,1 @@
+To test a restricted endpoint:Go the the endpoint on postman, find authorization tab, select bearer token from the type dropdown then paste the token from login

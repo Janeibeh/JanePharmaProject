@@ -1,6 +1,6 @@
 import express from "express"
 import {createReviews, getAllReviews } from "../Controllers/reviewControllers.js"
-import { authenticate, restrict } from "../Authentication/verifyToken.js"
+import { authenticate, restrict } from "../Middlewares/verifyAuthorizationToken.js"
 
 const router = express.Router()
 

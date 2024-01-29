@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import Firsthome from '../Components/Firsthome'
 
 
-
 const Home = () => {
   return (
     <>
@@ -25,12 +24,9 @@ const Home = () => {
             </div>
               
           </div>
-      </div>
-      
+      </div>  
       <Firsthome/>
     
-    
-      
     </>
   )
 }

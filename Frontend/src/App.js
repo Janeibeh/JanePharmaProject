@@ -20,7 +20,9 @@ import Header from './Layout/Header';
 import Cart from './Pages/Cart';
 
 
-
+//Dashboard
+import UserAccount from './Dashboard/user-account/UserAccount';
+import Dashboard from './Dashboard/doctor-account/Dashboard';
 
 
 
@@ -45,6 +47,10 @@ createRoutesFromElements(
         <Route path = "login" element={<Login/>}/>
         <Route path = "appointments" element={<Appointments/>}/>
         <Route path = "cart" element={<Cart/>}/>
+{/* so long as a path is given "" and a component is set as an element to it, just put the path as a url in browser, the component will appear
+    These new routes should be stored in Protected Routes */}
+        <Route path = "/users/profile/me" element={<UserAccount/>}/>
+        <Route path = "/doctors/profile/me" element={<Dashboard/>}/>
     </Route>
   </>
   )

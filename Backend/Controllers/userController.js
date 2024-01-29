@@ -69,11 +69,11 @@ export const getAllUsers = async (req, res) => {
         const users = await UserSchema.find({}).select("-password");
 
     
-        if (!getAllUsers) {
+        if (!users) {
             return res.status(404).json({ success: false, message: "No user found",  data:"users" });
         }
 
-        res.status(200).json({ success: true, message: "User found" });
+        res.status(200).json({ success: true, message: "User found", users });
     }
     
     catch (err) {
@@ -106,6 +106,7 @@ export const getUserProfile = async (req, res) => {
 
 
 export const getMyAppointments = async (req, res) => {
+    console.log('User', req)
     const bookings = req.user_id; // Corrected destructuring syntax
 
     try {
@@ -115,13 +116,13 @@ export const getMyAppointments = async (req, res) => {
 
     
         //Step 2:  Extract doctors id's from the Appointments booked 
-        const doctorsIds = bookings.map(el => el.doctor.id)
-
+        const doctorsIds = bookings.map(el => el.availability)
+        console.log('Doctires', doctorsIds)
 
         //Step 3: retrieve doctors using doctors ids and  use .select("-password") to remove the password while retriving only doctors
         const doctors = await DoctorSchema.find({_id: {$in:doctorsIds}}).select("-password");
         
-        res.status(200).json({ success: true, message: "Getting Appointments", data:doctors );
+        res.status(200).json({ success: true, message: "Getting Appointments", data:doctors });
 
     } 
 

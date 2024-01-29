@@ -1,14 +1,20 @@
+// import { config } from 'dotenv';
 import jwt from "jsonwebtoken"
 import DoctorSchema from "../Models/DoctorSchema.js"
 import PatientSchema from "../Models/PatientSchema.js"
 import UserSchema from "../Models/UserSchema.js"
 
-export const authenticate = async( res, req, next) => {
-    // Get token from headers
+
+
+export const authenticate = async( req, res, next) => {
+    // Try checking/ trouble shooting from the first object ie req.headers. If middleware asyn function is not written in the right order, errors with authourisating headers maay occur. log in req.headers into console to ensure Bearer token is passed to authorization in header
+    // format to check for in console : authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YThjMDUyMTMxMDE3MTUzYjRhYmI4YiIsImlhdCI6MTcwNjUzNDM5OSwiZXhwIjoxNzA3ODMwMzk5fQ.QegNtd8z8WmS87hA9nqzG-LX5GUw7uqLzkrURyDmNe8',
+
+    // Get token from headers and store as authToken
     const authToken = req.headers.authorization
 
-    //Check token exists
-    if(!authToken || !authToken.startsWith("bearer")) 
+    // //Check token exists
+    if(!authToken || !authToken.startsWith("Bearer")) 
         {
             res.status(401).json({success:"false", message: "No token, Authentication denied" })
         } 
@@ -20,6 +26,7 @@ export const authenticate = async( res, req, next) => {
             // Extract token
             const token = authToken.split(" ")[1];
         
+        
             // Verify token
             const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
             req.userId = decoded.id;
@@ -27,7 +34,8 @@ export const authenticate = async( res, req, next) => {
         
             // Next function must be called for this authentication implementation to work
             next();
-        } catch (error) {
+        } catch (err) {
+            console.log('Eror')
             // Handle the error
             if (err.name = "TokenExpired"){
                 res.status(401).json({ message: "Token is expired" });

@@ -9,7 +9,7 @@ import axios from 'axios';
 const Signup = () => {
     const [file, setFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState("");
-    const [loading, setLoading] = useState(false); // Should be boolean
+    const [loading, setLoading] = useState(false); // loading state for hash loader Should be boolean
     const [formData, setFormData] = useState({
         first_name: "",
         last_name: "",

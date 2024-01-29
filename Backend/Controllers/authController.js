@@ -8,8 +8,8 @@ import validator from "validator";
 
 
 const generateToken = user => {
-            return jwt.sign( {id:user._id, role:user.role}, process.env.JWT_SECRET_key, {
-                            expiresIn: "15d",
+            return jwt.sign( {id:user._id, role:user.role}, process.env.JWT_SECRET_KEY, {
+                            expiresIn: "1d",
             }) 
         }
 
@@ -109,6 +109,7 @@ export const login = async(req, res) => {
         } 
 
     catch (error) {
+        console.log('Error', error)
         // Send a generic error message to clients
             res.status(500).json({ status: "error", message: "Login failed. Please try again." });
         }

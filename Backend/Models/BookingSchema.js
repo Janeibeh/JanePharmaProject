@@ -1,35 +1,19 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'
 
 const bookingSchema = new mongoose.Schema({
   patientId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Reference to the Patient (User) model
+    ref: 'Patient', // Reference to the Patient (Patient) model
     required: true,
   },
-  doctorId: {
+  availabilityId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Reference to the Doctor (User) model
+    ref: 'Availability', // Reference to the Doctor (User) model
     required: true,
   },
-
-  ticketPrice:{
-    type: Number,
-    required: true
-  },
-
-  appointmentDate: {
-    type: Date,
-    required: true,
-  },
-
-  durationInMinutes: {
-    type: Number,
-    required: true,
-  },
-
   status: {
     type: String,
-    enum: ['pending', 'confirmed', 'canceled'],
+    enum: ['pending', 'confirmed', 'completed', 'canceled'],
     default: 'pending',
   },
 
@@ -47,9 +31,11 @@ const bookingSchema = new mongoose.Schema({
 {timestamps: true}
 );
 
-const Booking = mongoose.model('Booking', bookingSchema);
+export default mongoose.model('Booking', bookingSchema);
 
-module.exports = Booking;
+// const Booking = mongoose.model('Booking', bookingSchema);
+
+// module.exports = Booking;
 
 
 // Consider the nature of appointments in your scenario. If appointments have fixed durations & scheduling is  straightforward
